@@ -11,7 +11,15 @@ inputs:
     default: ''
   service:
     description: 'The service alias for the event'
-    required: true
+    required: false
+    default: ''
+  environment:
+    description: 'The environment for the event'
+    required: false
+    default: ''
+  number:
+    description: 'The deploy number for the event'
+    required: false
     default: ''
 runs:
   using: 'docker'
@@ -19,5 +27,15 @@ runs:
   args:
     - create
     - deploy
-    - -i ${{ inputs.integrationId }}
-    - -s ${{ inputs.service }}
+    - -i 
+    - ${INPUT_INTEGRATIONID}
+    - -s 
+    - ${INPUT_SERVICE:-${GITHUB_REPOSITORY}}
+    - -e
+    - ${INPUT_ENVIRONMENT}
+    - -n
+    - ${INPUT_NUMBER:-${GITHUB_RUN_NUMBER})
+    - -url
+    - ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+    - -id
+    - ${GITHUB_RUN_ID}
