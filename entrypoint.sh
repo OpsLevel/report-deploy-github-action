@@ -2,7 +2,7 @@
 
 OPSLEVEL_FILE=./opslevel.yml
 if test -f "$OPSLEVEL_FILE"; then
-  OPSLEVEL_SERVICE=$(cat ./opslevel.yml | grep "name:" | awk '{gsub("name: ",""); print}') 
+  OPSLEVEL_SERVICE=$(cat ./opslevel.yml | grep "name:" | awk '{gsub("name:",""); print}' | xargs) 
 fi
 
 cat << EOF | opslevel create deploy -i "${INPUT_INTEGRATIONID}" -f -
