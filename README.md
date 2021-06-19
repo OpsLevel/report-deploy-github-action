@@ -24,7 +24,9 @@ The deploy number for the event - Default: `${GITHUB_RUN_NUMBER}`
 
 ## Example usage
 
+```yaml
 uses: opslevel/github-actions@v0.0.1
 with:
   integrationId: ${{ secrets.OL_INTEGRATION_ID }}
   service: "foobar"
+```
