@@ -10,7 +10,17 @@ This action emits a deploy event to OpsLevel.
 
 ### `service`
 
-**Required** The service alias for the event
+The service alias for the event - Default: `<org_user>/<repository>`
+
+If the repository has an `./opslevel.yml` file the service name will get pulled from it.
+
+### `environment`
+
+The environment for the event - Default: ""
+
+### `number`
+
+The deploy number for the event - Default: `${GITHUB_RUN_NUMBER}`
 
 ## Example usage
 
