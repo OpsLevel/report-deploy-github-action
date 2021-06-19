@@ -35,7 +35,7 @@ runs:
     - ${INPUT_ENVIRONMENT}
     - -n
     - ${INPUT_NUMBER:-${GITHUB_RUN_NUMBER})
-    - -url
+    - --url
     - ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
-    - -id
+    - --id
     - ${GITHUB_RUN_ID}
