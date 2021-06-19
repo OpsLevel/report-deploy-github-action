@@ -1,0 +1,23 @@
+name: 'OpsLevel - Create Deploy Event'
+author: 'OpsLevel <support@opslevel.com>'
+description: 'Create a deploy event in OpsLevel'
+branding:
+  icon: 'package'  
+  color: 'blue'
+inputs:
+  integrationId:
+    description: 'The OpsLevel deploy integration id'
+    required: true
+    default: ''
+  service:
+    description: 'The service alias for the event'
+    required: true
+    default: ''
+runs:
+  using: 'docker'
+  image: 'public.ecr.aws/opslevel/cli:v0.0.1-beta.2'
+  args:
+    - create
+    - deploy
+    - -i ${{ inputs.integrationId }}
+    - -s ${{ inputs.service }}
