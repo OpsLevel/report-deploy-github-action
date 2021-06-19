@@ -15,7 +15,7 @@ inputs:
     default: ''
 runs:
   using: 'docker'
-  image: 'public.ecr.aws/opslevel/cli:v0.0.1-beta.2'
+  image: 'docker://public.ecr.aws/opslevel/cli:v0.0.1-beta.2'
   args:
     - create
     - deploy
