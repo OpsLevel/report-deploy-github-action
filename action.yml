@@ -28,14 +28,14 @@ runs:
     - create
     - deploy
     - -i 
-    - ${INPUT_INTEGRATIONID}
+    - "${INPUT_INTEGRATIONID}"
     - -s 
-    - ${INPUT_SERVICE:-${GITHUB_REPOSITORY}}
+    - "${INPUT_SERVICE:-${GITHUB_REPOSITORY}}"
     - -e
-    - ${INPUT_ENVIRONMENT}
+    - "${INPUT_ENVIRONMENT}"
     - -n
-    - ${INPUT_NUMBER:-${GITHUB_RUN_NUMBER})
+    - "${INPUT_NUMBER:-${GITHUB_RUN_NUMBER}}"
     - --url
-    - ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+    - "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
     - --id
-    - ${GITHUB_RUN_ID}
+    - "${GITHUB_RUN_ID}"
