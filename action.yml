@@ -5,12 +5,16 @@ branding:
   icon: 'package'  
   color: 'blue'
 inputs:
-  integrationId:
-    description: 'The OpsLevel deploy integration id'
+  integration_url:
+    description: 'The OpsLevel deploy integration url'
     required: true
     default: ''
   service:
     description: 'The service alias for the event'
+    required: false
+    default: ''
+  description:
+    description: 'The description or release notes for the event'
     required: false
     default: ''
   environment:

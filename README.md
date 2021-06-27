@@ -4,15 +4,19 @@ This action emits a deploy event to OpsLevel.
 
 ## Inputs
 
-### `integrationId`
+### `integration_url`
 
 **Required** The OpsLevel deploy integration id.
 
 ### `service`
 
-The service alias for the event - Default: `<org_user>/<repository>`
+The service alias for the event - Default: `<github_org_or_user_name>/<repository_name>`
 
 If the repository has an `./opslevel.yml` file the service name will get pulled from it.
+
+### `description`
+
+The description or release notes for the event
 
 ### `environment`
 
@@ -27,6 +31,5 @@ The deploy number for the event - Default: `${GITHUB_RUN_NUMBER}`
 ```yaml
 uses: opslevel/github-actions@v0.0.1
 with:
-  integrationId: ${{ secrets.OL_INTEGRATION_ID }}
-  service: "foobar"
+  integration_url: ${{ secrets.OL_INTEGRATION_URL }}
 ```
