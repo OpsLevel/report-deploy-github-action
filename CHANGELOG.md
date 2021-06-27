@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="0.1.0"></a>
+## [0.1.0] - 2021-06-27
+### Upgrade
+- bump to use opslevel cli version 0.1.0-beta.1
+
+
 <a name="v0.0.2"></a>
 ## [v0.0.2] - 2021-06-19
 ### Bugfix
@@ -17,5 +23,6 @@
 - add ability to read ./opslevel.yml for the service name
 
 
-[Unreleased]: https://github.com/OpsLevel/github-actions/compare/v0.0.2...HEAD
+[Unreleased]: https://github.com/OpsLevel/github-actions/compare/0.1.0...HEAD
+[0.1.0]: https://github.com/OpsLevel/github-actions/compare/v0.0.2...0.1.0
 [v0.0.2]: https://github.com/OpsLevel/github-actions/compare/v0.0.1...v0.0.2
