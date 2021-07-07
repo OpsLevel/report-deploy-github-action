@@ -1,4 +1,4 @@
-# OpsLevel Github Actions
+# OpsLevel Deploy Event Github Action
 
 This action emits a deploy event to OpsLevel.
 
