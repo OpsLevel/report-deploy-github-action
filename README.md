@@ -1,12 +1,12 @@
-# OpsLevel Deploy Event Github Action
+# OpsLevel - Report Deploy Github Action
 
-This action emits a deploy event to OpsLevel.
+This action emits a deploy event for service to OpsLevel.
 
 ## Inputs
 
 ### `integration_url`
 
-**Required** The OpsLevel deploy integration id.
+**Required** The OpsLevel deploy integration url.
 
 ### `service`
 
@@ -29,7 +29,7 @@ The deploy number for the event - Default: `${GITHUB_RUN_NUMBER}`
 ## Example usage
 
 ```yaml
-uses: opslevel/github-actions@v0.0.1
+uses: opslevel/report-deploy-github-actions@v0.0.1
 with:
   integration_url: ${{ secrets.OL_INTEGRATION_URL }}
 ```

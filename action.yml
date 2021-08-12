@@ -1,6 +1,6 @@
-name: 'OpsLevel - Create Deploy Event'
+name: 'OpsLevel - Report Deploy'
 author: 'OpsLevel <support@opslevel.com>'
-description: 'Create a deploy event in OpsLevel'
+description: 'Create a deploy event for a service in OpsLevel'
 branding:
   icon: 'package'  
   color: 'blue'
