@@ -29,7 +29,7 @@ The deploy number for the event - Default: `${GITHUB_RUN_NUMBER}`
 ## Example usage
 
 ```yaml
-uses: opslevel/report-deploy-github-actions@v0.0.1
+uses: opslevel/report-deploy-github-actions@v0.1.0
 with:
   integration_url: ${{ secrets.OL_INTEGRATION_URL }}
 ```
