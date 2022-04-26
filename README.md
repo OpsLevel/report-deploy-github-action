@@ -16,7 +16,7 @@ If the repository has an `./opslevel.yml` file the service name will get pulled 
 
 ### `description`
 
-The description or release notes for the event
+The description or release notes for the event - Default: ""
 
 ### `environment`
 
@@ -26,10 +26,42 @@ The environment for the event - Default: ""
 
 The deploy number for the event - Default: `${GITHUB_RUN_NUMBER}`
 
+### `deployer_name`
+
+The deployer name who created the event - Default: `${GITHUB_ACTOR}`
+
+### `deployer_email`
+
+The deployer email who create the event - Default: ""
+
 ## Example usage
 
 ```yaml
-uses: OpsLevel/report-deploy-github-action@v0.1.0
-with:
-  integration_url: ${{ secrets.OL_INTEGRATION_URL }}
+jobs:
+  deploy:
+    steps:
+      - name: Report Deploy
+        uses: OpsLevel/report-deploy-github-action@v0.1.0
+        with:
+          integration_url: ${{ secrets.OL_INTEGRATION_URL }}
+          service: "my-service"
+```
+
+If you want to add the git commit author as the deployer
+
+```yaml
+jobs:
+  deploy:
+    steps:
+      - name: Get Deployer
+        id: deployer
+        run: |
+          DEPLOYER=$(git show -s --format='%ae')
+          echo "::set-output name=DEPLOYER::${DEPLOYER}"
+      - name: Report Deploy
+        uses: OpsLevel/report-deploy-github-action@v0.1.0
+        with:
+          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
+          service: "my-service"
+          deployer_email: ${{ steps.deployer.outputs.DEPLOYER }}
 ```
