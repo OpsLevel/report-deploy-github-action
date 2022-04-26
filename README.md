@@ -37,7 +37,31 @@ The deployer email who create the event - Default: `${GITHUB_RUN_NUMBER}`
 ## Example usage
 
 ```yaml
-uses: OpsLevel/report-deploy-github-action@v0.1.0
-with:
-  integration_url: ${{ secrets.OL_INTEGRATION_URL }}
+jobs:
+  deploy:
+    steps:
+      - name: Report Deploy
+        uses: opslevel/report-deploy-github-actions@v0.1.0
+        with:
+          integration_url: ${{ secrets.OL_INTEGRATION_URL }}
+          service: "my-service"
+```
+
+If you want to add the git commit author as the deployer
+
+```yaml
+jobs:
+  deploy:
+    steps:
+      - name: Get Deployer
+        id: deployer
+        run: |
+          DEPLOYER=$(git show -s --format='%ae')
+          echo "::set-output name=DEPLOYER::"
+      - name: Report Deploy
+        uses: opslevel/report-deploy-github-actions@v0.1.0
+        with:
+          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
+          service: "my-service"
+          deployer_email: ${{ steps.deployer.outputs.DEPLOYER }}
 ```
