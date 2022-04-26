@@ -13,6 +13,6 @@ deploy-number: "${INPUT_NUMBER:-${GITHUB_RUN_NUMBER}}"
 deploy-url: "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
 dedup-id: "${GITHUB_RUN_ID}"
 deployer:
-  name: "${GITHUB_ACTOR}"
-  email: ""
+  name: "${INPUT_DEPLOYER_NAME:-${GITHUB_ACTOR}}"
+  email: "${INPUT_DEPLOYER_EMAIL}"
 EOF

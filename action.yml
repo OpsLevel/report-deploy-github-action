@@ -22,7 +22,15 @@ inputs:
     required: false
     default: ''
   number:
-    description: 'The deploy number for the event'
+    description: 'The deploy number for the event - Default: ${GITHUB_RUN_NUMBER}'
+    required: false
+    default: ''
+  deployer_name:
+    description: 'The deployer name who created the event - Default: ${GITHUB_ACTOR}'
+    required: false
+    default: ''
+  deployer_email:
+    description: 'The deployer email who created the event'
     required: false
     default: ''
 runs:

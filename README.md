@@ -26,6 +26,14 @@ The environment for the event - Default: ""
 
 The deploy number for the event - Default: `${GITHUB_RUN_NUMBER}`
 
+### `deployer_name`
+
+The deployer name who created the event - Default: `${GITHUB_ACTOR}`
+
+### `number`
+
+The deployer email who create the event - Default: `${GITHUB_RUN_NUMBER}`
+
 ## Example usage
 
 ```yaml
