@@ -16,7 +16,7 @@ If the repository has an `./opslevel.yml` file the service name will get pulled 
 
 ### `description`
 
-The description or release notes for the event
+The description or release notes for the event - Default: ""
 
 ### `environment`
 
@@ -32,7 +32,7 @@ The deployer name who created the event - Default: `${GITHUB_ACTOR}`
 
 ### `deployer_email`
 
-The deployer email who create the event - Default: `${GITHUB_RUN_NUMBER}`
+The deployer email who create the event - Default: ""
 
 ## Example usage
 
