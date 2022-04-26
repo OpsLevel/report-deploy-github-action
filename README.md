@@ -57,7 +57,7 @@ jobs:
         id: deployer
         run: |
           DEPLOYER=$(git show -s --format='%ae')
-          echo "::set-output name=DEPLOYER::"
+          echo "::set-output name=DEPLOYER::${DEPLOYER}"
       - name: Report Deploy
         uses: OpsLevel/report-deploy-github-action@v0.1.0
         with:
