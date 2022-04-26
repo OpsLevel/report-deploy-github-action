@@ -30,7 +30,7 @@ The deploy number for the event - Default: `${GITHUB_RUN_NUMBER}`
 
 The deployer name who created the event - Default: `${GITHUB_ACTOR}`
 
-### `number`
+### `deployer_email`
 
 The deployer email who create the event - Default: `${GITHUB_RUN_NUMBER}`
 
