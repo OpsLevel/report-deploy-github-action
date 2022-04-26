@@ -41,7 +41,7 @@ jobs:
   deploy:
     steps:
       - name: Report Deploy
-        uses: opslevel/report-deploy-github-actions@v0.1.0
+        uses: OpsLevel/report-deploy-github-action@v0.1.0
         with:
           integration_url: ${{ secrets.OL_INTEGRATION_URL }}
           service: "my-service"
@@ -59,7 +59,7 @@ jobs:
           DEPLOYER=$(git show -s --format='%ae')
           echo "::set-output name=DEPLOYER::"
       - name: Report Deploy
-        uses: opslevel/report-deploy-github-actions@v0.1.0
+        uses: OpsLevel/report-deploy-github-action@v0.1.0
         with:
           integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
