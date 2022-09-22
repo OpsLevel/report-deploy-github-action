@@ -1,3 +1,5 @@
+[![Overall](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fapp.opslevel.com%2Fapi%2Fservice_level%2FtxxR0lvVSM0hcjQ9Nuig3F0jxjsS7F7Opeq2tTZ7rT0)](https://app.opslevel.com/services/report_deploy_github_action/maturity-report)
+
 # OpsLevel - Report Deploy Github Action
 
 This action emits a deploy event for service to OpsLevel.
