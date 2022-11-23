@@ -2,7 +2,7 @@ name: 'OpsLevel - Report Deploy'
 author: 'OpsLevel <support@opslevel.com>'
 description: 'Create a deploy event for a service in OpsLevel'
 branding:
-  icon: 'package'  
+  icon: 'package'
   color: 'blue'
 inputs:
   integration_url:
@@ -33,7 +33,10 @@ inputs:
     description: 'The deployer email who created the event'
     required: false
     default: ''
+  deduplication_id:
+    description: 'An identifier that can be used to deduplicate deployments'
+    required: false
+    default: ''
 runs:
   using: 'docker'
   image: 'Dockerfile'
-
