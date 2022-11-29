@@ -36,6 +36,10 @@ The deployer name who created the event - Default: `${GITHUB_ACTOR}`
 
 The deployer email who create the event - Default: ""
 
+### `deduplication_id`
+
+An identifier that can be used to deduplicate deployments - Default: `${GITHUB_RUN_ID}`
+
 ## Example usage
 
 ```yaml
