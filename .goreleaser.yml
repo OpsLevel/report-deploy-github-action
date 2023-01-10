@@ -1,0 +1,10 @@
+project_name: report-deploy-github-action
+builds:
+  - skip: true
+checksum:
+  disable: true
+changelog:
+  sort: desc
+  filters:
+    exclude:
+      - "^Merge"

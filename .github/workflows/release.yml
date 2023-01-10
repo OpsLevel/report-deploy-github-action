@@ -1,0 +1,76 @@
+name: "Release"
+
+on:
+  workflow_dispatch: {}
+  repository_dispatch:
+    types:
+      - release
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: 'true'
+          token: ${{ secrets.ORG_GITHUB_TOKEN }}
+      - name: Fetch All Tags
+        run: git fetch --force --tags
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
+      - name: Determine Next Version
+        id: next_version
+        uses: zwaldowski/semver-release-action@v3
+        with:
+          dry_run: true
+          bump: "minor"
+          prefix: "v"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Ensure Changelog
+        run: |
+          if test -f ./.changes/${{ steps.next_version.outputs.version_tag }}.md
+          then
+            echo "Skip Changie..."
+          else
+            go install github.com/miniscruff/changie@latest
+            changie batch ${{ steps.next_version.outputs.version_tag }}
+            changie merge
+          fi
+      - name: Commit & Tag Release
+        run: |
+          git config user.name "OpsLevel Bots"
+          git config user.email "bots@opslevel.com"
+          if [[ $(git diff --stat) != '' ]];
+          then
+            git add .
+            git commit -m "Cut Release '${{ steps.next_version.outputs.version_tag }}'"
+            git push origin HEAD
+          else
+            echo "Skip commit"
+          fi
+          git tag -f ${{ steps.next_version.outputs.version_tag }} -m "Cut Release '${{ steps.next_version.outputs.version_tag }}'"
+          git push -f origin refs/tags/${{ steps.next_version.outputs.version_tag }}
+      - name: Ensure Release Does Not Exist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete ${{ steps.next_version.outputs.version_tag }} || true
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2.7.0
+        with:
+          args: release --rm-dist --release-notes=./.changes/${{ steps.next_version.outputs.version_tag }}.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORG_GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
+      - name: Report Release To OpsLevel
+        uses: opslevel/report-deploy-github-action@v0.2.0
+        with:
+          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
+          service: "report_deploy_github_action"
