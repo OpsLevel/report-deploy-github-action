@@ -1,6 +1,10 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Upgrade
+
+- bump to use OpsLevel CLI Version v2022.12.22
+
 
 <a name="0.1.0"></a>
 ## [0.1.0] - 2021-06-27
