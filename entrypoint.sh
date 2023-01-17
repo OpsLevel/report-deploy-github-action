@@ -18,3 +18,5 @@ deployer:
 EOF
 
 opslevel create deploy -i "${INPUT_INTEGRATION_URL}" -f .
+
+rm data.yaml
