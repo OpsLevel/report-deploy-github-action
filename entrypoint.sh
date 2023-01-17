@@ -5,7 +5,7 @@ if test -f "$OPSLEVEL_FILE"; then
   OPSLEVEL_SERVICE=$(cat ./opslevel.yml | grep "name:" | awk '{gsub("name:",""); print}' | xargs)
 fi
 
-cat << EOF | opslevel create deploy -i "${INPUT_INTEGRATION_URL}" -f -
+cat <<EOF > data.yaml
 service: "${INPUT_SERVICE:-${OPSLEVEL_SERVICE:-${GITHUB_REPOSITORY}}}"
 description: "${INPUT_DESCRIPTION}"
 environment: "${INPUT_ENVIRONMENT}"
@@ -16,3 +16,5 @@ deployer:
   name: "${INPUT_DEPLOYER_NAME:-${GITHUB_ACTOR}}"
   email: "${INPUT_DEPLOYER_EMAIL}"
 EOF
+
+opslevel create deploy -i "${INPUT_INTEGRATION_URL}" -f .
