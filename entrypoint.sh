@@ -8,7 +8,7 @@ fi
 cat <<EOF > data.yaml
 service: "${INPUT_SERVICE:-${OPSLEVEL_SERVICE:-${GITHUB_REPOSITORY}}}"
 description: "${INPUT_DESCRIPTION}"
-environment: "${INPUT_ENVIRONMENT}"
+environment: "${INPUT_ENVIRONMENT:-production}"
 deploy-number: "${INPUT_NUMBER:-${GITHUB_RUN_NUMBER}}"
 deploy-url: "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
 dedup-id: "${INPUT_DEDUPLICATION_ID:-${GITHUB_RUN_ID}}"
