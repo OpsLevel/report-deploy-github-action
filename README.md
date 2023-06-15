@@ -49,7 +49,7 @@ jobs:
       - name: Report Deploy
         uses: OpsLevel/report-deploy-github-action@v0.6.0
         with:
-          integration_url: ${{ secrets.OL_INTEGRATION_URL }}
+          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
 ```
 
