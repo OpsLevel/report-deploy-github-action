@@ -1,3 +1,3 @@
-FROM public.ecr.aws/opslevel/cli:v2023.9.12
+FROM public.ecr.aws/opslevel/cli:v2023.10.8
 ENTRYPOINT ["/entrypoint.sh"]
 COPY entrypoint.sh /entrypoint.sh
