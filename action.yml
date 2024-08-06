@@ -23,7 +23,7 @@ inputs:
   description:
     description: 'The description or release notes for the event'
     required: false
-    default: ''
+    default: 'Event Created by OpsLevel Github Action'
   environment:
     description: 'The environment for the event'
     required: false
@@ -43,18 +43,21 @@ runs:
       shell: bash
       run: |
         echo ::add-mask::$INTEGRATION_URL
-        curl -X POST $INTEGRATION_URL -H 'Content-Type: application/json' -d '{
-            "service": "$SERVICE",
-            "environment": "$ENVIRONMENT",
-            "description": "$DESCRIPTION",
-            "dedup-id": "$DEDUPLICATION_ID",
-            "deploy-number": "$NUMBER",
-            "deploy-url": "$DEPLOY_URL",
-            "deployer": {
-              "name": "$DEPLOYER_NAME",
-              "email": "$DEPLOYER_EMAIL"
-            }
-          }'
+        DEPLOYED_AT=$(date -u +"%Y-%m-%d %H:%M:%S")
+        echo "{
+            \"service\": \"$SERVICE\",
+            \"deployed_at\": \"$DEPLOYED_AT UTC\",
+            \"deployer\": {
+              \"name\": \"$DEPLOYER_NAME\",
+              \"email\": \"$DEPLOYER_EMAIL\"
+            },
+            \"description\": \"$DESCRIPTION\",
+            \"dedup-id\": \"$DEDUPLICATION_ID\",
+            \"deploy-number\": \"$NUMBER\",
+            \"deploy-url\": \"$DEPLOY_URL\",
+            \"environment\": \"$ENVIRONMENT\"
+        }" > payload.json
+        curl $INTEGRATION_URL -H "Content-Type: application/json" -d "@payload.json"
       env:
         DESCRIPTION: ${{ inputs.description }}
         DEPLOY_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
