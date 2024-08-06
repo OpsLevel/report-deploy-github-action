@@ -8,11 +8,18 @@ inputs:
   integration_url:
     description: 'The OpsLevel deploy integration url'
     required: true
-    default: ''
-  service:
-    description: 'The service alias for the event'
+  deduplication_id:
+    description: 'An identifier that can be used to deduplicate deployments'
+    required: false
+    default: ${{ github.run_id }}
+  deployer_email:
+    description: 'The deployer email who created the event'
     required: false
     default: ''
+  deployer_name:
+    description: 'The deployer name who created the event'
+    required: false
+    default: ${{ github.actor }}
   description:
     description: 'The description or release notes for the event'
     required: false
@@ -20,23 +27,41 @@ inputs:
   environment:
     description: 'The environment for the event'
     required: false
-    default: ''
+    default: production
   number:
-    description: 'The deploy number for the event - Default: ${GITHUB_RUN_NUMBER}'
+    description: 'The deploy number for the event'
     required: false
-    default: ''
-  deployer_name:
-    description: 'The deployer name who created the event - Default: ${GITHUB_ACTOR}'
+    default: ${{ github.run_number }}
+  service:
+    description: 'The service alias for the event'
     required: false
-    default: ''
-  deployer_email:
-    description: 'The deployer email who created the event'
-    required: false
-    default: ''
-  deduplication_id:
-    description: 'An identifier that can be used to deduplicate deployments'
-    required: false
-    default: ''
+    default: ${{ github.repository }}
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "composite"
+  steps:
+    - name: Report Deploy to OpsLevel
+      shell: bash
+      run: |
+        echo ::add-mask::$INTEGRATION_URL
+        curl -X POST $INTEGRATION_URL -H 'Content-Type: application/json' -d '{
+            "service": "$SERVICE",
+            "environment": "$ENVIRONMENT",
+            "description": "$DESCRIPTION",
+            "dedup-id": "$DEDUPLICATION_ID",
+            "deploy-number": "$NUMBER",
+            "deploy-url": "$DEPLOY_URL",
+            "deployer": {
+              "name": "$DEPLOYER_NAME",
+              "email": "$DEPLOYER_EMAIL"
+            }
+          }'
+      env:
+        DESCRIPTION: ${{ inputs.description }}
+        DEPLOY_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        DEPLOYER_EMAIL: ${{ inputs.deployer_email }}
+        DEPLOYER_NAME: ${{ inputs.deployer_name }}
+        DEDUPLICATION_ID: ${{ inputs.deduplication_id }}
+        ENVIRONMENT: ${{ inputs.environment }}
+        INTEGRATION_URL: ${{ inputs.integration_url }}
+        NUMBER: ${{ inputs.number }}
+        SERVICE: ${{ inputs.service }}
