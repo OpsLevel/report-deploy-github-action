@@ -39,28 +39,15 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Report Deploy to OpsLevel
+    - name: Install OpsLevel cli
       shell: bash
       run: |
-        echo ::add-mask::$INTEGRATION_URL
-        DEPLOYED_AT=$(date -u +"%Y-%m-%d %H:%M:%S")
-        echo "{
-            \"service\": \"$SERVICE\",
-            \"deployed_at\": \"$DEPLOYED_AT UTC\",
-            \"deployer\": {
-              \"name\": \"$DEPLOYER_NAME\",
-              \"email\": \"$DEPLOYER_EMAIL\"
-            },
-            \"description\": \"$DESCRIPTION\",
-            \"dedup-id\": \"$DEDUPLICATION_ID\",
-            \"deploy-number\": \"$NUMBER\",
-            \"deploy-url\": \"$DEPLOY_URL\",
-            \"environment\": \"$ENVIRONMENT\"
-        }" > payload.json
-        curl $INTEGRATION_URL -H "Content-Type: application/json" -d "@payload.json"
+        curl -sLS https://raw.githubusercontent.com/OpsLevel/cli/main/install.sh | sudo sh
+    - name: Report Deploy to OpsLevel
+      shell: bash
+      run: ./entrypoint.sh
       env:
         DESCRIPTION: ${{ inputs.description }}
-        DEPLOY_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         DEPLOYER_EMAIL: ${{ inputs.deployer_email }}
         DEPLOYER_NAME: ${{ inputs.deployer_name }}
         DEDUPLICATION_ID: ${{ inputs.deduplication_id }}
