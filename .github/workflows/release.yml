@@ -65,7 +65,7 @@ jobs:
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6.0.0
         with:
-          args: release --rm-dist --release-notes=./.changes/${{ steps.next_version.outputs.version_tag }}.md
+          args: release --clean --release-notes=./.changes/${{ steps.next_version.outputs.version_tag }}.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG_GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
