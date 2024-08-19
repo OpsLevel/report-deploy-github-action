@@ -45,7 +45,20 @@ runs:
         curl -sLS https://raw.githubusercontent.com/OpsLevel/cli/main/install.sh | sudo sh
     - name: Report Deploy to OpsLevel
       shell: bash
-      run: ./entrypoint.sh
+      run: |
+        echo ::add-mask::$INTEGRATION_URL
+        cat <<EOF > data.yaml
+        service: "$SERVICE"
+        description": "$DESCRIPTION"
+        environment": "$ENVIRONMENT"
+        deploy-number": "$NUMBER"
+        deploy-url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        dedup-id": "$DEDUPLICATION_ID"
+        deployer:
+          name: "$DEPLOYER_NAME"
+          email: "$DEPLOYER_EMAIL"
+        EOF
+        opslevel create deploy -i "$INTEGRATION_URL" -f .
       env:
         DESCRIPTION: ${{ inputs.description }}
         DEPLOYER_EMAIL: ${{ inputs.deployer_email }}
