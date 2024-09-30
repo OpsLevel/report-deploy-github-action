@@ -46,6 +46,8 @@ An identifier that can be used to deduplicate deployments - Default: `${GITHUB_R
 jobs:
   deploy:
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Report Deploy
         uses: OpsLevel/report-deploy-github-action@v0.10.0
         with:
@@ -59,6 +61,8 @@ If you want to add the git commit author as the deployer
 jobs:
   deploy:
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Get Deployer
         id: deployer
         run: |
