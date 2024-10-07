@@ -36,14 +36,32 @@ inputs:
     description: 'The service alias for the event'
     required: false
     default: ${{ github.repository }}
+  use_docker:
+    description: 'Send deploy using docker if "true" - use OpsLevel CLI otherwise'
+    required: false
+    default: 'true'
 runs:
   using: "composite"
   steps:
+    - name: Do it with Docker
+      if: ${{ inputs.use_docker == 'true' }}
+      uses: './with-docker'
+      with:
+        integration_url: ${{ inputs.integration_url }}
+        deduplication_id: ${{ inputs.deduplication_id }}
+        deployer_email: ${{ inputs.deployer_email }}
+        deployer_name: ${{ inputs.deployer_name }}
+        description: ${{ inputs.description }}
+        environment: ${{ inputs.environment }}
+        number: ${{ inputs.number }}
+        service: ${{ inputs.service }}
     - name: Install OpsLevel cli
+      if: ${{ inputs.use_docker != 'true' }}
       shell: bash
       run: |
         curl -sLS https://raw.githubusercontent.com/OpsLevel/cli/main/install.sh | sudo sh
     - name: Report Deploy to OpsLevel
+      if: ${{ inputs.use_docker != 'true' }}
       shell: bash
       run: |
         echo ::add-mask::$INTEGRATION_URL
