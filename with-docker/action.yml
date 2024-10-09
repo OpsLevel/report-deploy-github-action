@@ -1,0 +1,42 @@
+name: 'OpsLevel - Report Deploy'
+author: 'OpsLevel <support@opslevel.com>'
+description: 'Create a deploy event for a service in OpsLevel'
+branding:
+  icon: 'package'
+  color: 'blue'
+inputs:
+  integration_url:
+    description: 'The OpsLevel deploy integration url'
+    required: true
+    default: ''
+  service:
+    description: 'The service alias for the event'
+    required: false
+    default: ''
+  description:
+    description: 'The description or release notes for the event'
+    required: false
+    default: ''
+  environment:
+    description: 'The environment for the event'
+    required: false
+    default: ''
+  number:
+    description: 'The deploy number for the event - Default: ${GITHUB_RUN_NUMBER}'
+    required: false
+    default: ''
+  deployer_name:
+    description: 'The deployer name who created the event - Default: ${GITHUB_ACTOR}'
+    required: false
+    default: ''
+  deployer_email:
+    description: 'The deployer email who created the event'
+    required: false
+    default: ''
+  deduplication_id:
+    description: 'An identifier that can be used to deduplicate deployments'
+    required: false
+    default: ''
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

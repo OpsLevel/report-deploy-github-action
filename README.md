@@ -40,6 +40,10 @@ The deployer email who create the event - Default: ""
 
 An identifier that can be used to deduplicate deployments - Default: `${GITHUB_RUN_ID}`
 
+### `use_docker`
+
+Send deploy using Docker container if "true" - use OpsLevel CLI otherwise - Default: `true`
+
 ## Example usage
 
 ```yaml
@@ -49,10 +53,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Report Deploy
-        uses: OpsLevel/report-deploy-github-action@v0.10.0
+        uses: OpsLevel/report-deploy-github-action@v0.11.0
         with:
           integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
+          use_docker: "true"
 ```
 
 If you want to add the git commit author as the deployer
@@ -69,9 +74,10 @@ jobs:
           DEPLOYER=$(git show -s --format='%ae')
           echo "DEPLOYER=${DEPLOYER}" >> $GITHUB_OUTPUT
       - name: Report Deploy
-        uses: OpsLevel/report-deploy-github-action@v0.10.0
+        uses: OpsLevel/report-deploy-github-action@v0.11.0
         with:
           integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
           deployer_email: ${{ steps.deployer.outputs.DEPLOYER }}
+          use_docker: "false"
 ```
