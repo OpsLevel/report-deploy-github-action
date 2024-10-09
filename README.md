@@ -44,6 +44,14 @@ An identifier that can be used to deduplicate deployments - Default: `${GITHUB_R
 
 Send deploy using Docker container if "true" - use OpsLevel CLI otherwise - Default: `true`
 
+## Reporting Deploy with Docker or OpsLevel CLI
+
+This action can be run using either Docker or the OpsLevel CLI, depending on the value of the `use_docker` input.
+
+While both behave identically, this action will run using Docker by default - see [./with-docker](./with-docker).
+For Github workflows operating within intentional constraints, perhaps where building public Docker images is not
+an option, it may be preferable to use the OpsLevel CLI.
+
 ## Example usage
 
 ```yaml
@@ -53,7 +61,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Report Deploy
-        uses: OpsLevel/report-deploy-github-action@v0.11.0
+        uses: OpsLevel/report-deploy-github-action@v1.0.0
         with:
           integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
@@ -74,7 +82,7 @@ jobs:
           DEPLOYER=$(git show -s --format='%ae')
           echo "DEPLOYER=${DEPLOYER}" >> $GITHUB_OUTPUT
       - name: Report Deploy
-        uses: OpsLevel/report-deploy-github-action@v0.11.0
+        uses: OpsLevel/report-deploy-github-action@v1.0.0
         with:
           integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
