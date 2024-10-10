@@ -67,11 +67,11 @@ runs:
         echo ::add-mask::$INTEGRATION_URL
         cat <<EOF > data.yaml
         service: "$SERVICE"
-        description": "$DESCRIPTION"
-        environment": "$ENVIRONMENT"
-        deploy-number": "$NUMBER"
-        deploy-url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-        dedup-id": "$DEDUPLICATION_ID"
+        description: "$DESCRIPTION"
+        environment: "$ENVIRONMENT"
+        deploy-number: "$NUMBER"
+        deploy-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        dedup-id: "$DEDUPLICATION_ID"
         deployer:
           name: "$DEPLOYER_NAME"
           email: "$DEPLOYER_EMAIL"
