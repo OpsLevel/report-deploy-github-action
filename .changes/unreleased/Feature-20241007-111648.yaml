@@ -1,3 +1,0 @@
-kind: Feature
-body: BREAKING CHANGE - this action now supports sending deploys with both Docker and the OpsLevel CLI directly. An optional "use_docker" input arg was added, using Docker by default. To use the OpsLevel CLI directly set "use_docker" to false
-time: 2024-10-07T11:16:48.460943-05:00
