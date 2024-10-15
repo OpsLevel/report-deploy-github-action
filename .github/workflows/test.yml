@@ -1,0 +1,23 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report Deploy with Docker
+        uses: OpsLevel/report-deploy-github-action@${{ github.sha }}
+        with:
+          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
+          service: "report_deploy_github_action"
+          use_docker: "true"
+      - name: Report Deploy with CLI
+        uses: OpsLevel/report-deploy-github-action@${{ github.sha }}
+        with:
+          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
+          service: "report_deploy_github_action"
+          use_docker: "false"
