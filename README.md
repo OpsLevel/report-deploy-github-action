@@ -1,95 +1,95 @@
-[![Overall](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fapp.opslevel.com%2Fapi%2Fservice_level%2FtxxR0lvVSM0hcjQ9Nuig3F0jxjsS7F7Opeq2tTZ7rT0)](https://app.opslevel.com/services/report_deploy_github_action/maturity-report)
+[![OVERALL](HTTPS://IMG.SHIELDS.IO/ENDPOINT?STYLE=FLAT&URL=HTTPS%3A%2F%2FAPP.OPSLEVEL.COM%2FAPI%2FSERVICE_LEVEL%2FTXXR0LVVSM0HCJQ9NUIG3F0JXJSS7F7OPEQ2TTZ7RT0)](HTTPS://APP.OPSLEVEL.COM/SERVICES/REPORT_DEPLOY_GITHUB_ACTION/MATURITY-REPORT)
 
-# OpsLevel - Report Deploy Github Action
+# OPSLEVEL - REPORT DEPLOY GITHUB ACTION
 
-This action emits a deploy event for service to OpsLevel.
+THIS ACTION EMITS A DEPLOY EVENT FOR SERVICE TO OPSLEVEL.
 
-## Inputs
+## INPUTS
 
-### `integration_url`
+### `INTEGRATION_URL`
 
-**Required** The OpsLevel deploy integration url.
+**REQUIRED** THE OPSLEVEL DEPLOY INTEGRATION URL.
 
-### `service`
+### `SERVICE`
 
-The service alias for the event - Default: `<github_org_or_user_name>/<repository_name>`
+THE SERVICE ALIAS FOR THE EVENT - DEFAULT: `<GITHUB_ORG_OR_USER_NAME>/<REPOSITORY_NAME>`
 
-If the repository has an `./opslevel.yml` file the service name will get pulled from it.
+IF THE REPOSITORY HAS AN `./OPSLEVEL.YML` FILE THE SERVICE NAME WILL GET PULLED FROM IT.
 
-### `description`
+### `DESCRIPTION`
 
-The description or release notes for the event - Default: ""
+THE DESCRIPTION OR RELEASE NOTES FOR THE EVENT - DEFAULT: ""
 
-### `environment`
+### `ENVIRONMENT`
 
-The environment for the event - Default: ""
+THE ENVIRONMENT FOR THE EVENT - DEFAULT: ""
 
-### `number`
+### `NUMBER`
 
-The deploy number for the event - Default: `${GITHUB_RUN_NUMBER}`
+THE DEPLOY NUMBER FOR THE EVENT - DEFAULT: `${GITHUB_RUN_NUMBER}`
 
-### `deployer_name`
+### `DEPLOYER_NAME`
 
-The deployer name who created the event - Default: `${GITHUB_ACTOR}`
+THE DEPLOYER NAME WHO CREATED THE EVENT - DEFAULT: `${GITHUB_ACTOR}`
 
-### `deployer_email`
+### `DEPLOYER_EMAIL`
 
-The deployer email who create the event - Default: ""
+THE DEPLOYER EMAIL WHO CREATE THE EVENT - DEFAULT: ""
 
-### `deploy_url`
+### `DEPLOY_URL`
 
-The deploy url that OpsLevel points to - Default: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`
+THE DEPLOY URL THAT OPSLEVEL POINTS TO - DEFAULT: `${{ GITHUB.SERVER_URL }}/${{ GITHUB.REPOSITORY }}/ACTIONS/RUNS/${{ GITHUB.RUN_ID }}`
 
-### `deduplication_id`
+### `DEDUPLICATION_ID`
 
-An identifier that can be used to deduplicate deployments - Default: `${GITHUB_RUN_ID}`
+AN IDENTIFIER THAT CAN BE USED TO DEDUPLICATE DEPLOYMENTS - DEFAULT: `${GITHUB_RUN_ID}`
 
-### `use_docker`
+### `USE_DOCKER`
 
-Send deploy using Docker container if "true" - use OpsLevel CLI otherwise - Default: `true`
+SEND DEPLOY USING DOCKER CONTAINER IF "TRUE" - USE OPSLEVEL CLI OTHERWISE - DEFAULT: `TRUE`
 
-## Reporting Deploy with Docker or OpsLevel CLI
+## REPORTING DEPLOY WITH DOCKER OR OPSLEVEL CLI
 
-This action can be run using either Docker or the OpsLevel CLI, depending on the value of the `use_docker` input.
+THIS ACTION CAN BE RUN USING EITHER DOCKER OR THE OPSLEVEL CLI, DEPENDING ON THE VALUE OF THE `USE_DOCKER` INPUT.
 
-While both behave identically, this action will run using Docker by default - see [./with-docker](./with-docker).
-For Github workflows operating within intentional constraints, perhaps where building public Docker images is not
-an option, it may be preferable to use the OpsLevel CLI.
+WHILE BOTH BEHAVE IDENTICALLY, THIS ACTION WILL RUN USING DOCKER BY DEFAULT - SEE [./WITH-DOCKER](./WITH-DOCKER).
+FOR GITHUB WORKFLOWS OPERATING WITHIN INTENTIONAL CONSTRAINTS, PERHAPS WHERE BUILDING PUBLIC DOCKER IMAGES IS NOT
+AN OPTION, IT MAY BE PREFERABLE TO USE THE OPSLEVEL CLI.
 
-## Example usage
+## EXAMPLE USAGE
 
-```yaml
-jobs:
-  deploy:
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Report Deploy
-        uses: OpsLevel/report-deploy-github-action@v1.0.0
-        with:
-          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
-          service: "my-service"
-          use_docker: "true"
+```YAML
+JOBS:
+  DEPLOY:
+    STEPS:
+      - NAME: CHECKOUT
+        USES: ACTIONS/CHECKOUT@V4
+      - NAME: REPORT DEPLOY
+        USES: OPSLEVEL/REPORT-DEPLOY-GITHUB-ACTION@V1.0.0
+        WITH:
+          INTEGRATION_URL: ${{ SECRETS.DEPLOY_INTEGRATION_URL }}
+          SERVICE: "MY-SERVICE"
+          USE_DOCKER: "TRUE"
 ```
 
-If you want to add the git commit author as the deployer
+IF YOU WANT TO ADD THE GIT COMMIT AUTHOR AS THE DEPLOYER
 
-```yaml
-jobs:
-  deploy:
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Get Deployer
-        id: deployer
-        run: |
-          DEPLOYER=$(git show -s --format='%ae')
-          echo "DEPLOYER=${DEPLOYER}" >> $GITHUB_OUTPUT
-      - name: Report Deploy
-        uses: OpsLevel/report-deploy-github-action@v1.0.0
-        with:
-          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
-          service: "my-service"
-          deployer_email: ${{ steps.deployer.outputs.DEPLOYER }}
-          use_docker: "false"
+```YAML
+JOBS:
+  DEPLOY:
+    STEPS:
+      - NAME: CHECKOUT
+        USES: ACTIONS/CHECKOUT@V4
+      - NAME: GET DEPLOYER
+        ID: DEPLOYER
+        RUN: |
+          DEPLOYER=$(GIT SHOW -S --FORMAT='%AE')
+          ECHO "DEPLOYER=${DEPLOYER}" >> $GITHUB_OUTPUT
+      - NAME: REPORT DEPLOY
+        USES: OPSLEVEL/REPORT-DEPLOY-GITHUB-ACTION@V1.0.0
+        WITH:
+          INTEGRATION_URL: ${{ SECRETS.DEPLOY_INTEGRATION_URL }}
+          SERVICE: "MY-SERVICE"
+          DEPLOYER_EMAIL: ${{ STEPS.DEPLOYER.OUTPUTS.DEPLOYER }}
+          USE_DOCKER: "FALSE"
 ```
