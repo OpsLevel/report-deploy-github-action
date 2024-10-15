@@ -20,6 +20,10 @@ inputs:
     description: 'The deployer name who created the event'
     required: false
     default: ${{ github.actor }}
+  deploy_url:
+    description: 'The deploy url that OpsLevel points to'
+    required: false
+    default: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
   description:
     description: 'The description or release notes for the event'
     required: false
@@ -50,6 +54,7 @@ runs:
         integration_url: ${{ inputs.integration_url }}
         deduplication_id: ${{ inputs.deduplication_id }}
         deployer_email: ${{ inputs.deployer_email }}
+        deploy_url: ${{ inputs.deploy_url }}
         deployer_name: ${{ inputs.deployer_name }}
         description: ${{ inputs.description }}
         environment: ${{ inputs.environment }}
@@ -67,11 +72,11 @@ runs:
         echo ::add-mask::$INTEGRATION_URL
         cat <<EOF > data.yaml
         service: "$SERVICE"
-        description": "$DESCRIPTION"
-        environment": "$ENVIRONMENT"
-        deploy-number": "$NUMBER"
-        deploy-url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-        dedup-id": "$DEDUPLICATION_ID"
+        description: "$DESCRIPTION"
+        environment: "$ENVIRONMENT"
+        deploy-number: "$NUMBER"
+        deploy-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        dedup-id: "$DEDUPLICATION_ID"
         deployer:
           name: "$DEPLOYER_NAME"
           email: "$DEPLOYER_EMAIL"
