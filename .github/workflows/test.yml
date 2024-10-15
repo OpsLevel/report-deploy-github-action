@@ -17,12 +17,12 @@ jobs:
       - name: Report Deploy with Docker
         uses: ./
         with:
-          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
+          integration_url: ${{ secrets.OL_TEST_DEPLOY_URL }}
           service: "report_deploy_github_action"
           use_docker: "true"
       - name: Report Deploy with CLI
         uses: ./
         with:
-          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
+          integration_url: ${{ secrets.OL_TEST_DEPLOY_URL }}
           service: "report_deploy_github_action"
           use_docker: "false"
