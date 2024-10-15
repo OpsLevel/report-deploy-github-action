@@ -8,35 +8,30 @@ inputs:
   integration_url:
     description: 'The OpsLevel deploy integration url'
     required: true
-    default: ''
   service:
     description: 'The service alias for the event'
-    required: false
-    default: ''
+    required: true
   description:
     description: 'The description or release notes for the event'
-    required: false
-    default: ''
+    required: true
   environment:
     description: 'The environment for the event'
-    required: false
-    default: ''
+    required: true
   number:
     description: 'The deploy number for the event - Default: ${GITHUB_RUN_NUMBER}'
-    required: false
-    default: ''
+    required: true
   deployer_name:
     description: 'The deployer name who created the event - Default: ${GITHUB_ACTOR}'
-    required: false
-    default: ''
+    required: true
   deployer_email:
     description: 'The deployer email who created the event'
-    required: false
-    default: ''
+    required: true
+  deploy_url:
+    description: 'The deployer email who created the event'
+    required: true
   deduplication_id:
     description: 'An identifier that can be used to deduplicate deployments'
-    required: false
-    default: ''
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'

@@ -36,6 +36,10 @@ The deployer name who created the event - Default: `${GITHUB_ACTOR}`
 
 The deployer email who create the event - Default: ""
 
+### `deploy_url`
+
+The deploy url that OpsLevel points to - Default: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`
+
 ### `deduplication_id`
 
 An identifier that can be used to deduplicate deployments - Default: `${GITHUB_RUN_ID}`
