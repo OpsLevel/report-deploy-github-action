@@ -30,7 +30,7 @@ jobs:
         uses: zwaldowski/semver-release-action@v4
         with:
           dry_run: true
-          bump: "major"
+          bump: "patch"
           prefix: "v"
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Ensure Changelog
