@@ -65,7 +65,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Report Deploy
-        uses: OpsLevel/report-deploy-github-action@v1.0.0
+        uses: OpsLevel/report-deploy-github-action@v2.0.0
         with:
           integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
@@ -86,7 +86,7 @@ jobs:
           DEPLOYER=$(git show -s --format='%ae')
           echo "DEPLOYER=${DEPLOYER}" >> $GITHUB_OUTPUT
       - name: Report Deploy
-        uses: OpsLevel/report-deploy-github-action@v1.0.0
+        uses: OpsLevel/report-deploy-github-action@v2.0.0
         with:
           integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
