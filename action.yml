@@ -27,7 +27,7 @@ inputs:
   description:
     description: 'The description or release notes for the event'
     required: false
-    default: 'Event Created by OpsLevel Github Action'
+    default: 'Event Created by ${{ github.workflow }}'
   environment:
     description: 'The environment for the event'
     required: false
