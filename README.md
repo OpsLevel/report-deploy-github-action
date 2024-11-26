@@ -2,7 +2,7 @@
 
 # OpsLevel - Report Deploy Github Action
 
-This action emits a deploy event for service to OpsLevel.  We have configured it with sane defaults so you should only have to specify `integration_url` and `service`.  `environment` defaults to `production` so if you want to track deploys from other environments you'll want to specific that too
+This action emits a deploy event for service to OpsLevel.  We have configured it with sane defaults so you should only have to specify `integration_url` and `service`.  `environment` defaults to `production` so if you want to track deploys from other environments you'll want to specify that too.
 
 ## Example usage
 
