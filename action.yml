@@ -47,9 +47,15 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Mask inputs
+      shell: bash
+      run: |
+        set +v
+        echo ::add-mask::${{ inputs.integration_url }}
+        set -v
     - name: Do it with Docker
       if: ${{ inputs.use_docker == 'true' }}
-      uses: OpsLevel/report-deploy-github-action/with-docker@v1.0.0
+      uses: OpsLevel/report-deploy-github-action/with-docker@v2.0.0
       with:
         integration_url: ${{ inputs.integration_url }}
         deduplication_id: ${{ inputs.deduplication_id }}
@@ -60,16 +66,13 @@ runs:
         environment: ${{ inputs.environment }}
         number: ${{ inputs.number }}
         service: ${{ inputs.service }}
-    - name: Install OpsLevel cli
+    - name: Install OpsLevel CLI
       if: ${{ inputs.use_docker != 'true' }}
-      shell: bash
-      run: |
-        curl -sLS https://raw.githubusercontent.com/OpsLevel/cli/main/install.sh | sudo sh
+      uses: opslevel/actions/setup-cli@v1
     - name: Report Deploy to OpsLevel
       if: ${{ inputs.use_docker != 'true' }}
       shell: bash
       run: |
-        echo ::add-mask::$INTEGRATION_URL
         cat <<EOF > data.yaml
         service: "${{ inputs.service }}"
         description: "${{ inputs.description }}"
@@ -81,6 +84,4 @@ runs:
           name: "${{ inputs.deployer_name }}"
           email: "${{ inputs.deployer_email }}"
         EOF
-        opslevel create deploy -i "${INTEGRATION_URL}" -f .
-      env:
-        INTEGRATION_URL: ${{ inputs.integration_url }}
+        opslevel create deploy -i "${{ inputs.integration_url }}" -f .
