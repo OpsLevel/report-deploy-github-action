@@ -49,7 +49,7 @@ runs:
   steps:
     - name: Do it with Docker
       if: ${{ inputs.use_docker == 'true' }}
-      uses: OpsLevel/report-deploy-github-action/with-docker@v1.0.0
+      uses: OpsLevel/report-deploy-github-action/with-docker@v2.0.0
       with:
         integration_url: ${{ inputs.integration_url }}
         deduplication_id: ${{ inputs.deduplication_id }}
