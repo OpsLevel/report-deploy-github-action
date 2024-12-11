@@ -50,14 +50,14 @@ runs:
     - name: Mask inputs
       shell: bash
       run: |
-        INTEGRATION_URL=$(jq -r 'inputs.integration_url' $GITHUB_EVENT_PATH)
-        echo ::add-mask::$INTEGRATION_URL
-        echo "INTEGRATION_URL=$INTEGRATION_URL" >> $GITHUB_ENV
+        set +v
+        echo ::add-mask::${{ inputs.integration_url }}
+        set -v
     - name: Do it with Docker
       if: ${{ inputs.use_docker == 'true' }}
       uses: OpsLevel/report-deploy-github-action/with-docker@v2.0.0
       with:
-        integration_url: ${{ env.INTEGRATION_URL }}
+        integration_url: ${{ inputs.integration_url }}
         deduplication_id: ${{ inputs.deduplication_id }}
         deployer_email: ${{ inputs.deployer_email }}
         deploy_url: ${{ inputs.deploy_url }}
@@ -84,4 +84,4 @@ runs:
           name: "${{ inputs.deployer_name }}"
           email: "${{ inputs.deployer_email }}"
         EOF
-        opslevel create deploy -i "${{ env.INTEGRATION_URL }}" -f .
+        opslevel create deploy -i "${{ inputs.integration_url }}" -f .
