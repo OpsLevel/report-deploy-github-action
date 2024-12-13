@@ -4,7 +4,7 @@
 
 This action emits a deploy event for service to OpsLevel.  We have configured it with sane defaults so you should only have to specify `integration_url` and `service`.  `environment` defaults to `production` so if you want to track deploys from other environments you'll want to specify that too.
 
-## Example usage
+## Example usage - uses OpsLevel CLI directly
 
 ```yaml
 jobs:
@@ -12,12 +12,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Report Deploy
-        uses: OpsLevel/report-deploy-github-action@v2.0.0
+      - name: Report Deploy using OpsLevel CLI
+        uses: OpsLevel/report-deploy-github-action@v3.0.0
         with:
           integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
-          use_docker: "true"
+```
+
+## Example usage - uses Docker image
+
+```yaml
+jobs:
+  deploy:
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Report Deploy using Docker
+        uses: OpsLevel/report-deploy-github-action/with-docker@v3.0.0
+        with:
+          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
+          service: "my-service"
 ```
 
 ## Inputs
@@ -60,17 +74,16 @@ The deploy url that OpsLevel points to - Default: `${{ github.server_url }}/${{ 
 
 An identifier that can be used to deduplicate deployments - Default: `${{ github.run_id }}`
 
-### `use_docker`
-
-Send deploy using Docker container if "true" - use OpsLevel CLI otherwise - Default: `true`
-
 ## Reporting Deploy with Docker or OpsLevel CLI
 
-This action can be run using either Docker or the OpsLevel CLI, depending on the value of the `use_docker` input.
+This action can be run using either Docker or the OpsLevel CLI, both have identical inputs and behave identically.
 
-While both behave identically, this action will run using Docker by default - see [./with-docker](./with-docker).
+To report deploys to OpsLevel with the OpsLevel CLI based Github Action (default), add `uses: OpsLevel/report-deploy-github-action@v3.0.0` to your workflow.
+
+To report deploys to OpsLevel with the Docker based Github Action, add `uses: OpsLevel/report-deploy-github-action/with-docker@v3.0.0` to your workflow.
+
 For Github workflows operating within intentional constraints, perhaps where building public Docker images is not
-an option, it may be preferable to use the OpsLevel CLI.
+an option, it may be preferable to use the default OpsLevel CLI.
 
 ## Overriding Defaults Example
 
@@ -88,7 +101,7 @@ jobs:
           DEPLOYER=$(git show -s --format='%ae')
           echo "DEPLOYER=${DEPLOYER}" >> $GITHUB_OUTPUT
       - name: Report Deploy
-        uses: OpsLevel/report-deploy-github-action@v2.0.0
+        uses: OpsLevel/report-deploy-github-action@v3.0.0
         with:
           integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
