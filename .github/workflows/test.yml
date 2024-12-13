@@ -9,20 +9,24 @@ on:
       - '**/*'
 
 jobs:
-  test:
+  test-report-deploy-with-cli:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Report Deploy with Docker
-        uses: ./
-        with:
-          integration_url: ${{ secrets.OL_TEST_DEPLOY_URL }}
-          service: "report_deploy_github_action"
-          use_docker: "true"
       - name: Report Deploy with CLI
         uses: ./
         with:
           integration_url: ${{ secrets.OL_TEST_DEPLOY_URL }}
           service: "report_deploy_github_action"
-          use_docker: "false"
+
+  test-report-deploy-with-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Report Deploy with Docker
+        uses: ./with-docker
+        with:
+          integration_url: ${{ secrets.OL_TEST_DEPLOY_URL }}
+          service: "report_deploy_github_action"
