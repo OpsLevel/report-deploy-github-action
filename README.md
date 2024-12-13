@@ -106,5 +106,4 @@ jobs:
           integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
           service: "my-service"
           deployer_email: ${{ steps.deployer.outputs.DEPLOYER }}
-          use_docker: "false"
 ```
