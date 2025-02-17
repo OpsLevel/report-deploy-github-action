@@ -63,7 +63,7 @@ jobs:
         run: |
           gh release delete ${{ steps.next_version.outputs.version_tag }} || true
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v6.1.0
+        uses: goreleaser/goreleaser-action@v6.2.1
         with:
           args: release --clean --release-notes=./.changes/${{ steps.next_version.outputs.version_tag }}.md
         env:
