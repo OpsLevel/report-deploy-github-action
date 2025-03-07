@@ -1,3 +1,7 @@
+> [!IMPORTANT]  
+> This repo and action is deprecated - OpsLevel now natively pulls in deploys based on your usage of Github deploy environments and setting up the [Github integration](https://docs.opslevel.com/docs/github-integration).  
+
+
 [![Overall](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fapp.opslevel.com%2Fapi%2Fservice_level%2FtxxR0lvVSM0hcjQ9Nuig3F0jxjsS7F7Opeq2tTZ7rT0)](https://app.opslevel.com/services/report_deploy_github_action/maturity-report)
 
 # OpsLevel - Report Deploy Github Action
